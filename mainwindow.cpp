@@ -6,6 +6,7 @@
 #include <QAction>
 #include <QDebug>
 #include <QFile>
+#include <QIntValidator>
 #include <QMessageBox>
 #include <QRegularExpression>
 #include <QScrollBar>
@@ -25,7 +26,7 @@ const QString MainWindow::ARG_SOURCE_STATIC = "source=static";
 const QString MainWindow::ARG_SOURCE_STATIC_CIDR = "address=";
 const QString MainWindow::ARG_SOURCE_STATIC_GATEWAY = "gateway=";
 const QString MainWindow::ARG_DNS_STATIC = "static";
-const QString MainWindow::CONFIG_FILE_NAME = "profiles";
+const QString MainWindow::CONFIG_FILE_NAME = "settings.txt";
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow), counter(0) {
     ui->setupUi(this);
@@ -54,8 +55,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     scroll_base_widget->setLayout(profile_layout);
 
     DHCP_interface_edit = new QLineEdit;
+    DHCP_interface_edit->setPlaceholderText(tr("Interface Name"));
     left_layout->addWidget(DHCP_interface_edit);
-    auto *DHCP_button = new QPushButton(tr("Use DHCP"));
+    auto *DHCP_button = new QPushButton(tr("Back to DHCP"));
     left_layout->addWidget(DHCP_button);
     connect(DHCP_button, SIGNAL(clicked()), this, SLOT(onDHCPPushButtonClicked()));
 
@@ -71,6 +73,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     IP_edit = new QLineEdit;
     subnet_edit = new QLineEdit;
+    subnet_edit->setValidator(new QIntValidator(0, 32, this));
     settings_layout->addWidget(new QLabel(tr("IP: ")), 1, 0, 1, 1, Qt::AlignRight);
     auto *CIDR_layout = new QHBoxLayout;
     CIDR_layout->addWidget(IP_edit);
@@ -92,7 +95,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     right_layout->addStretch();
 
     auto *save_button = new QPushButton;
-    save_button->setText(tr("Save to Profile list"));
+    save_button->setText(tr("Save"));
     right_layout->addWidget(save_button);
 
     connect(save_button, SIGNAL(clicked()), this, SLOT(onSavePushButtonClicked()));
