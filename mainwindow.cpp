@@ -33,6 +33,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     QTranslator translator;
     translator.load("SystemCallGenerateNetshObject_en_US");
+	
+	setWindowTitle(tr("IPv4 Configure Tool"));
 
     base_layout = new QHBoxLayout;
     ui->centralwidget->setLayout(base_layout);

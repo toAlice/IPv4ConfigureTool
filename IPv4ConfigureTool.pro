@@ -4,6 +4,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
 
+CONFIG+= static
+
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
@@ -17,7 +19,7 @@ FORMS += \
     mainwindow.ui
 
 TRANSLATIONS += \
-    IPv4SettingsSwitch_en_US.ts.ts
+    IPv4ConfigureTool_en_US.ts.ts
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
