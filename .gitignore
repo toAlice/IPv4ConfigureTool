@@ -74,3 +74,5 @@ release/
 *.dll
 *.exe
 
+uic_wrapper.bat
+*plugin_import.cpp
